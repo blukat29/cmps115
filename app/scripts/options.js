@@ -1,6 +1,7 @@
 'use strict';
 
-var domainCount = {};
+var domainCount = [];
+var dateCount = [];
 
 // http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string
 function extractDomain(url) {
@@ -18,14 +19,47 @@ function extractDomain(url) {
     return domain;
 }
 
-chrome.history.search({text:""}, function(results) {
-  for (var i=0; i<results.length; i++) {
-    var domain = extractDomain(results[i].url);
-    if (domain in domainCount) {
-      domainCount[domain] ++;
-    } else {
-      domainCount[domain] = 1;
+function collectData() {
+
+  var _searchDuration = 1000 * 60 * 60 * 24 * 7 * 20;  // 20 weeks.
+  var options = {
+    text: "",
+    startTime: (new Date).getTime() - _searchDuration,
+    maxResults: 100000
+  };
+
+  chrome.history.search(options, function(results) {
+
+    /* Count hits per domain, per date. */
+    var domainCountDict = {};
+    var dateCountDict = {};
+    for (var i = 0; i < results.length; i ++) {
+      var datetime = new Date(results[i].lastVisitTime);
+      var date = (new Date(datetime));
+      date.setHours(0,0,0,0);
+      dateCountDict[date] = (dateCountDict[date] + 1) || 1;
+
+      var domain = extractDomain(results[i].url);
+      domainCountDict[domain] = (domainCountDict[domain] + 1) || 1;
     }
-  }
-  console.log(domainCount);
-});
+    /* Convert dictionary into array of objects. */
+    domainCount = Object.keys(domainCountDict).map(function(k) {
+      return { domain: k, count: domainCountDict[k] };
+    });
+    dateCount = Object.keys(dateCountDict).map(function(k) {
+      return { date: k, count: dateCountDict[k] };
+    });
+    /* Sort arrays. */
+    domainCount.sort(function(a, b) {
+      return b.count - a.count;
+    });
+    dateCount.sort(function(a, b) {
+      return (new Date(a.date)) - (new Date(b.date));
+    });
+
+    console.log(domainCount);
+    console.log(dateCount);
+  });
+}
+
+collectData();
