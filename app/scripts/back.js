@@ -2,6 +2,7 @@
 
 var domainCount = [];
 var dateCount = [];
+var dayHourCount = [];
 
 // http://stackoverflow.com/questions/8498592/extract-root-domain-name-from-string
 function extractDomain(url) {
@@ -33,6 +34,13 @@ function collectData(callback) {
     /* Count hits per domain, per date. */
     var domainCountDict = {};
     var dateCountDict = {};
+	var tempDayHourCount = [];
+	for (var i = 0; i < 7; i++) {
+		tempDayHourCount[i] = [];
+		for (var j = 0; j < 24; j++) {
+			tempDayHourCount[i][j] = 0;
+		}
+	}
     for (var i = 0; i < results.length; i ++) {
       var datetime = new Date(results[i].lastVisitTime);
       var date = (new Date(datetime));
@@ -41,7 +49,15 @@ function collectData(callback) {
 
       var domain = extractDomain(results[i].url);
       domainCountDict[domain] = (domainCountDict[domain] + 1) || 1;
+
+	  tempDayHourCount[datetime.getDay()][datetime.getHours()]++;
     }
+
+	for (var i = 0; i < 7; i++) {
+		for (var j = 0; j < 24; j++) {
+			dayHourCount.push({day:i+1, hour:j+1, value:tempDayHourCount[i][j]});
+		}
+	}
     /* Convert dictionary into array of objects. */
     domainCount = Object.keys(domainCountDict).map(function(k) {
       return { domain: k, count: domainCountDict[k] };
