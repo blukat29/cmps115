@@ -4,6 +4,7 @@ collectData(function() {
   console.log(domainCount);
   console.log(dateCount);
   drawHitsPerDay(dateCount);
+  // drawDayHourHeatMap(dayHourCount);
   drawDomainsRank(domainCount);
 });
 
@@ -49,7 +50,7 @@ function drawHitsPerDay (data) {
 
   // Define domains.
   x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([-1, d3.max(data, function(d) { return d.count; })]);
+  y.domain([0, d3.max(data, function(d) { return d.count; })]);
 
   // Draw line.
   svg.append("path")
@@ -67,4 +68,7 @@ function drawHitsPerDay (data) {
       .attr("class", "y axis")
       .call(yAxis);
 
+}
+
+function drawDayHourHeatMap (data) {
 }
