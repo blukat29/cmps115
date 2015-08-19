@@ -6,6 +6,7 @@ collectData(function() {
   drawHitsPerDay(dateCount);
   // drawDayHourHeatMap(dayHourCount);
   drawDomainsRank(domainCount);
+	drawWords(domainCount);
 });
 
 function drawDomainsRank (data) {
