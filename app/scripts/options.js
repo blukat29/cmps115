@@ -82,15 +82,16 @@ function getRandomColor() {
 
 
 function drawPieChart(){
-  var b = [];
+  var pieData = [];
   for (var i=0; i<domainCount.length; ++i){
-    b.push({
+    pieData.push({
         "label": domainCount.domain[i],
         "value": domainCount.count[i],
         "color": getRandomColor()
       });
   }
-  var a = {
+
+var pie = new d3pie("pieChart", {
   "header": {
     "title": {
       "text": "Top Hit Domains",
@@ -108,7 +109,7 @@ function drawPieChart(){
   },
   "data": {
     "sortOrder": "value-desc",
-    "content": b,    
+    "content": pieData,    
     "labels": {
     "inner": {
     "hideWhenLessThanPercentage": 3
@@ -146,8 +147,6 @@ function drawPieChart(){
   },
   "callbacks": {}
 };
-  var pie = new d3pie("pieChart", );
-
 
 }
 
