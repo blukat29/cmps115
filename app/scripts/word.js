@@ -19,7 +19,7 @@ function drawWords(domains) {
         .on("end", draw);
   layout.start();
   function draw(words) {
-    d3.select("body").append("svg")
+    d3.select("#domainCloud").append("svg")
       .attr("width", layout.size()[0])
       .attr("height", layout.size()[1])
       .append("g")
