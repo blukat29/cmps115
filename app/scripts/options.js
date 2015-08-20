@@ -69,7 +69,7 @@ function drawHitsPerDay (data) {
 
 }
 
-
+/*
 //get random color for piechart?
 function getRandomColor() {
     var letters = '0123456789ABCDEF'.split('');
@@ -89,7 +89,7 @@ function getpieData(){
         "color": getRandomColor()
       });
   } 
-}
+}*/
 
 function drawPieChart(){
 var pie = new d3pie("pieChart", {
@@ -119,7 +119,12 @@ var pie = new d3pie("pieChart", {
   },
   "data": {
     "sortOrder": "value-desc",
-    "content": [getpieData()]
+    "content": [  
+        "label": domainCount.domain[0],
+        "value": domainCount.count[0],
+        "color": #000FFF
+      });
+  } ]
   },
   "labels": {
     "outer": {
