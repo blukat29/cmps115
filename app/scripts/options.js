@@ -123,8 +123,7 @@ var pie = new d3pie("pieChart", {
         "label": domainCount.domain[0],
         "value": domainCount.count[0],
         "color": #000FFF
-      });
-  } ]
+    ]
   },
   "labels": {
     "outer": {
