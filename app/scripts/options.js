@@ -68,3 +68,88 @@ function drawHitsPerDay (data) {
       .call(yAxis);
 
 }
+
+
+//get random color for piechart?
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+function drawPieChart(){
+  var b = [];
+  for (var i=0; i<domainCount.length; ++i){
+    b.push({
+        "label": domainCount.domain[i],
+        "value": domainCount.count[i],
+        "color": getRandomColor()
+      });
+  }
+  var a = {
+  "header": {
+    "title": {
+      "text": "Top Hit Domains",
+      "font": "open sans"
+    },
+  "footer": {
+    "color": "#999999",
+    "fontSize": 10,
+    "font": "open sans",
+    "location": "bottom-left"
+  },
+  "size": {
+    "canvasWidth": 590,
+    "pieOuterRadius": "80%"
+  },
+  "data": {
+    "sortOrder": "value-desc",
+    "content": b,    
+    "labels": {
+    "inner": {
+    "hideWhenLessThanPercentage": 3
+    },
+    "mainLabel": {
+      "fontSize": 11
+    },
+    "percentage": {
+      "color": "#ffffff",
+      "decimalPlaces": 0
+    },
+    "value": {
+      "color": "#adadad",
+      "fontSize": 11
+    },
+    "lines": {
+      "enabled": true
+    },
+    "truncation": {
+      "enabled": true
+    }
+  },
+  "effects": {
+    "pullOutSegmentOnClick": {
+      "effect": "linear",
+      "speed": 400,
+      "size": 8
+    }
+  },
+  "misc": {
+    "gradient": {
+      "enabled": true,
+      "percentage": 100
+    }
+  },
+  "callbacks": {}
+};
+  var pie = new d3pie("pieChart", );
+
+
+}
+
+
+
