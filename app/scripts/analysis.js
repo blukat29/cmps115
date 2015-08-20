@@ -1,11 +1,14 @@
 'use strict';
 
-collectData(function() {
-  drawHitsPerDay(dateCount);
-  drawDayHourHeatMap(dayHourCount);
-  drawWords(domainCount);
-  drawPieChart(domainCount);
-});
+function drawAll(filter) {
+  collectData(function() {
+    drawHitsPerDay(dateCount);
+    drawDayHourHeatMap(dayHourCount);
+    drawWords(domainCount);
+    drawPieChart(domainCount);
+    console.log("done drawing");
+  }, filter);
+}
 
 function drawDomainsRank (data) {
   var rankLength = (data.length < 10) ? data.length : 10;
@@ -160,7 +163,8 @@ function drawPieChart(data){
   }
 
   var pieData = [];
-  for(var i = 0; i < 20; ++i){
+  var length = (data.length > 20)? 20 : data.length;
+  for(var i = 0; i < length; ++i){
     pieData.push({
       "label": data[i].domain,
       "value": data[i].count,

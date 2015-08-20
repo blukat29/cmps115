@@ -20,12 +20,23 @@ function extractDomain(url) {
     return domain;
 }
 
-function collectData(callback) {
+/* collectData(callback, filter)
+ * callback: a function called after the calculation has ended.
+ * filter: an object.
+ *    - text: (optional) Search only urls including this string.
+ *    - duration: (optional) Starting time of search, in miliseconds.
+ */
+function collectData(callback, filter) {
 
-  var _searchDuration = 1000 * 60 * 60 * 24 * 7 * 20;  // 20 weeks.
+  var searchText = ""; // defaults to everything.
+  var searchDuration = 1000 * 60 * 60 * 24 * 7 * 20;  // defaults to 20 weeks.
+  if (filter) {
+    searchText = filter.text || searchText;
+    searchDuration = filter.duration || searchDuration;
+  }
   var options = {
-    text: "",
-    startTime: (new Date).getTime() - _searchDuration,
+    text: searchText,
+    startTime: (new Date).getTime() - searchDuration,
     maxResults: 100000
   };
 
@@ -34,13 +45,14 @@ function collectData(callback) {
     /* Count hits per domain, per date. */
     var domainCountDict = {};
     var dateCountDict = {};
-	var tempDayHourCount = [];
-	for (var i = 0; i < 7; i++) {
-		tempDayHourCount[i] = [];
-		for (var j = 0; j < 24; j++) {
-			tempDayHourCount[i][j] = 0;
-		}
-	}
+    var tempDayHourCount = [];
+    for (var i = 0; i < 7; i++) {
+      tempDayHourCount[i] = [];
+      for (var j = 0; j < 24; j++) {
+        tempDayHourCount[i][j] = 0;
+      }
+    }
+
     for (var i = 0; i < results.length; i ++) {
       var datetime = new Date(results[i].lastVisitTime);
       var date = (new Date(datetime));
@@ -50,14 +62,15 @@ function collectData(callback) {
       var domain = extractDomain(results[i].url);
       domainCountDict[domain] = (domainCountDict[domain] + 1) || 1;
 
-	  tempDayHourCount[datetime.getDay()][datetime.getHours()]++;
+      tempDayHourCount[datetime.getDay()][datetime.getHours()]++;
     }
 
-	for (var i = 0; i < 7; i++) {
-		for (var j = 0; j < 24; j++) {
-			dayHourCount.push({day:i+1, hour:j+1, value:tempDayHourCount[i][j]});
-		}
-	}
+    for (var i = 0; i < 7; i++) {
+      for (var j = 0; j < 24; j++) {
+        dayHourCount.push({day:i+1, hour:j+1, value:tempDayHourCount[i][j]});
+      }
+    }
+
     /* Convert dictionary into array of objects. */
     domainCount = Object.keys(domainCountDict).map(function(k) {
       return { domain: k, count: domainCountDict[k] };
@@ -65,6 +78,7 @@ function collectData(callback) {
     dateCount = Object.keys(dateCountDict).map(function(k) {
       return { date: k, count: dateCountDict[k] };
     });
+
     /* Sort arrays. */
     domainCount.sort(function(a, b) {
       return b.count - a.count;
