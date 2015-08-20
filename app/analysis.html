@@ -7,6 +7,7 @@
     <title>Colorful History</title>
     <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/analysis.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
     <script src="library/scripts/jquery-2.1.4.min.js"></script>
     <script src="library/bootstrap/js/bootstrap.min.js"></script>
     <script src="library/scripts/d3.min.js"></script>
@@ -14,20 +15,49 @@
     <script src="library/scripts/d3pie.min.js"></script>
   </head>
   <body>
-    <h1>Colorful History</h1>
+    <div class="container-fluid">
+      <div class="row">
 
-    <h3>Hits per day</h3>
-    <div id="hitsPerDay"></div>
+        <!-- Navbar -->
+        <nav class="col-xs-2 bs-docs-sidebar">
+          <div class="fixed">
+            <h1>Colorful<br>
+            History</h1>
+            <ul id="sidebar" class="nav nav-stacked">
+              <li><a href="#grp-HitsPerDay">Hits Per Day</a></li>
+              <li><a href="#grp-DayHourHeatMap">Day-Hour Heat Map</a></li>
+              <li><a href="#grp-DomainCloud">Domain Cloud</a></li>
+              <li><a href="#grp-TopDomains">Top Domains</a></li>
+            </ul>
+          </div>
+        </nav>
 
-    <h3>Day-Hour Heat Map</h3>
-    <div id="dayHourHeatMap"></div>
+        <!-- Main Content -->
+        <div class="col-xs-10 main-content">
+          <section id="grp-HitsPerDay" class="group">
+            <h3>Hits per day</h3>
+            <div id="hitsPerDay"></div>
+          </section>
 
-		<h3>Domain Cloud</h3>
-    <div id="domainCloud"></div>
+          <section id="grp-DayHourHeatMap" class="group">
+            <h3>Day-Hour Heat Map</h3>
+            <div id="dayHourHeatMap"></div>
+          </section>
 
-    <h3>Top hits domains</h3>
-    <div id="topDomains"></div>
+          <section id="grp-DomainCloud" class="group">
+            <h3>Domain Cloud</h3>
+            <div id="domainCloud"></div>
+          </section>
 
+          <section id="grp-TopDomains" class="group">
+            <h3>Top hits domains</h3>
+            <div id="topDomains"></div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
     <script src="scripts/back.js"></script>
     <script src="scripts/word.js"></script>
     <script src="scripts/analysis.js"></script>
