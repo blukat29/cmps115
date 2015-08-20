@@ -10,7 +10,6 @@
   "default_locale": "en",
   "background": {
     "scripts": [
-      "scripts/chromereload.js",
       "scripts/background.js"
     ]
   },
@@ -19,8 +18,7 @@
       "19": "images/icon-19.png",
       "38": "images/icon-38.png"
     },
-    "default_title": "Colorful History",
-    "default_popup": "popup.html"
+    "default_title": "Colorful History"
   },
   "options_page": "options.html",
   "permissions": [
