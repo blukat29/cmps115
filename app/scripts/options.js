@@ -80,8 +80,7 @@ function getRandomColor() {
     return color;
 }
 
-
-function drawPieChart(){
+function getpieData(){
   var pieData = [];
   for (var i=0; i<domainCount.length; ++i){
     pieData.push({
@@ -89,14 +88,25 @@ function drawPieChart(){
         "value": domainCount.count[i],
         "color": getRandomColor()
       });
-  }
+  } 
+}
 
+function drawPieChart(){
 var pie = new d3pie("pieChart", {
   "header": {
     "title": {
-      "text": "Top Hit Domains",
+      "text": "Top hits domains",
+      "fontSize": 24,
       "font": "open sans"
     },
+    "subtitle": {
+      "color": "#999999",
+      "fontSize": 12,
+      "font": "open sans"
+    },
+    "location": "top-left",
+    "titleSubtitlePadding": 9
+  },
   "footer": {
     "color": "#999999",
     "fontSize": 10,
@@ -105,14 +115,18 @@ var pie = new d3pie("pieChart", {
   },
   "size": {
     "canvasWidth": 590,
-    "pieOuterRadius": "80%"
+    "pieOuterRadius": "90%"
   },
   "data": {
     "sortOrder": "value-desc",
-    "content": pieData,    
-    "labels": {
+    "content": [getpieData()]
+  },
+  "labels": {
+    "outer": {
+      "pieDistance": 32
+    },
     "inner": {
-    "hideWhenLessThanPercentage": 3
+      "hideWhenLessThanPercentage": 3
     },
     "mainLabel": {
       "fontSize": 11
@@ -140,14 +154,16 @@ var pie = new d3pie("pieChart", {
     }
   },
   "misc": {
+    "colors": {
+      "background": "#ffffff"
+    },
     "gradient": {
       "enabled": true,
       "percentage": 100
     }
   },
   "callbacks": {}
-};
-
+});
 }
 
 
