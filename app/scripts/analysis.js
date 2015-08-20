@@ -1,20 +1,14 @@
 'use strict';
 
-collectData(function() {
-  drawHitsPerDay(dateCount);
-  drawDayHourHeatMap(dayHourCount);
-  drawWords(domainCount);
-  drawPieChart(domainCount);
-});
-
-function drawDomainsRank (data) {
-  var rankLength = (data.length < 10) ? data.length : 10;
-  var e = $("#topDomains");
-  for (var i = 0; i < rankLength; i ++) {
-    var div = $("<div></div>")
-        .html(data[i].domain + " " + data[i].count);
-    e.append(div);
-  }
+function drawAll(filter, callback) {
+  collectData(function() {
+    drawHitsPerDay(dateCount);
+    drawDayHourHeatMap(dayHourCount);
+    drawWords(domainCount);
+    drawPieChart(domainCount);
+    if (callback)
+      callback();
+  }, filter);
 }
 
 function drawHitsPerDay (data) {
@@ -40,6 +34,7 @@ function drawHitsPerDay (data) {
       .y(function(d) { return y(d.count); });
 
   // Create svg canvas.
+  $("#hitsPerDay").html("");
   var svg = d3.select("#hitsPerDay")
       .append("svg")
           .attr("width", width + margin.left + margin.right)
@@ -85,6 +80,7 @@ function drawDayHourHeatMap (data) {
     .domain([0, buckets - 1, d3.max(data, function (d) { return d.value; })])
     .range(colors);
 
+  $("#dayHourHeatMap").html("");
   var svg = d3.select("#dayHourHeatMap").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
@@ -160,7 +156,8 @@ function drawPieChart(data){
   }
 
   var pieData = [];
-  for(var i = 0; i < 20; ++i){
+  var length = (data.length > 20)? 20 : data.length;
+  for(var i = 0; i < length; ++i){
     pieData.push({
       "label": data[i].domain,
       "value": data[i].count,
@@ -168,6 +165,7 @@ function drawPieChart(data){
     });
   }
 
+  $("#pieChart").html("");
   var pie = new d3pie("pieChart", {
     "header": {
       "title": {

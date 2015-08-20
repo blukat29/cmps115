@@ -8,17 +8,18 @@ function drawWords(domains) {
   }
 
   var layout = d3.layout.cloud()
-        .size([1000, 500])
-        .words(domains.map(function(d) {
-          return {text: d.domain, size: sizing(d.count), test: "haha"};
-        }))
-        .padding(1.4)
-        .rotate(function() { return (Math.floor(((Math.random()*2)-1)*4)+1)*18; })
-        .font("Impact")
-        .fontSize(function(d) { return d.size; })
-        .on("end", draw);
+    .size([1000, 500])
+    .words(domains.map(function(d) {
+      return {text: d.domain, size: sizing(d.count), test: "haha"};
+    }))
+  .padding(1.4)
+    .rotate(function() { return (Math.floor(((Math.random()*2)-1)*4)+1)*18; })
+    .font("Impact")
+    .fontSize(function(d) { return d.size; })
+    .on("end", draw);
   layout.start();
   function draw(words) {
+    $("#domainCloud").html("");
     d3.select("#domainCloud").append("svg")
       .attr("width", layout.size()[0])
       .attr("height", layout.size()[1])
@@ -26,10 +27,10 @@ function drawWords(domains) {
       .attr("transform", "translate(" + layout.size()[0] / 2 + "," + layout.size()[1] / 2 + ")")
       .selectAll("text")
       .data(words)
-    .enter().append("a")
+      .enter().append("a")
       .attr("xlink:href", function(d) { return "http://" + d.text; })
       .attr("xlink:show", "new")
-    .append("text")
+      .append("text")
       .style("font-size", function(d) { return d.size + "px"; })
       .style("font-family", "Impact")
       .style("fill", function(d, i) { return fill(i); })
@@ -37,6 +38,6 @@ function drawWords(domains) {
       .attr("transform", function(d) {
         return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
       })
-      .text(function(d) { return d.text; });
+    .text(function(d) { return d.text; });
   }
 }
