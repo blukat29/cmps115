@@ -8,10 +8,12 @@
     <script src="library/scripts/d3.min.js"></script>
     <script src="library/scripts/d3.layout.cloud.js"></script>
     <script src="library/scripts/d3pie.min.js"></script>
+    <script src="library/scripts/spin.min.js"></script>
+    <script src="library/scripts/jquery.blockUI.js"></script>
   </head>
   <body>
     <h1>Colorful History</h1>
-
+    <div id="spin" style="position:fixed;top:50%;left:50%"> </div>
     <h3>Filters</h3>
     <div id="filter">
       <div>
@@ -27,7 +29,6 @@
       </div>
       <div>
         <button id="btnApplyText">Apply</button>
-        <label id="filterStatus"></label>
       </div>
     </div>
 
@@ -37,7 +38,7 @@
     <h3>Day-Hour Heat Map</h3>
     <div id="dayHourHeatMap"></div>
 
-		<h3>Domain Cloud</h3>
+    <h3>Domain Cloud</h3>
     <div id="domainCloud"></div>
 
     <h3>Pie Chart</h3>
