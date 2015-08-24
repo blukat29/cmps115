@@ -13,8 +13,11 @@
     <script src="library/scripts/d3.min.js"></script>
     <script src="library/scripts/d3.layout.cloud.js"></script>
     <script src="library/scripts/d3pie.min.js"></script>
+    <script src="library/scripts/spin.min.js"></script>
+    <script src="library/scripts/jquery.blockUI.js"></script>
   </head>
   <body>
+    <div id="spin" style="position:fixed;top:50%;left:50%"> </div>
     <div class="container-fluid">
       <div class="row">
 
@@ -24,16 +27,37 @@
             <h1>Colorful<br>
             History</h1>
             <ul id="sidebar" class="nav nav-stacked">
+              <li><a href="#grp-Filter">Filter</a></li>
               <li><a href="#grp-HitsPerDay">Hits Per Day</a></li>
               <li><a href="#grp-DayHourHeatMap">Day-Hour Heat Map</a></li>
               <li><a href="#grp-DomainCloud">Domain Cloud</a></li>
-              <li><a href="#grp-TopDomains">Top Domains</a></li>
+              <li><a href="#grp-PieChart">Top Domains Pie Chart</a></li>
             </ul>
           </div>
         </nav>
 
         <!-- Main Content -->
         <div class="col-xs-10 main-content">
+          <section id="grp-Filter" class="group">
+            <h3>Filter</h3>
+            <div id="filter">
+              <div>
+                <label>Domain or title</label>
+                <input type="text" id="inputText" />
+              </div>
+              <div>
+                <input type="radio" name="duration" value="3600000">1 Hour
+                <input type="radio" name="duration" value="86400000">1 Day
+                <input type="radio" name="duration" value="604800000">1 Week
+                <input type="radio" name="duration" value="2592000000">1 Month
+                <input type="radio" name="duration" value="12096000000" checked>All
+              </div>
+              <div>
+                <button id="btnApplyText">Apply</button>
+              </div>
+            </div>
+          </section>
+
           <section id="grp-HitsPerDay" class="group">
             <h3>Hits per day</h3>
             <div id="hitsPerDay"></div>
@@ -49,17 +73,17 @@
             <div id="domainCloud"></div>
           </section>
 
-          <section id="grp-TopDomains" class="group">
-            <h3>Top hits domains</h3>
-            <div id="topDomains"></div>
+          <section id="grp-PieChart" class="group">
+            <h3>Top domains</h3>
+            <div id="pieChart"></div>
           </section>
         </div>
       </div>
     </div>
 
-    <script src="scripts/main.js"></script>
     <script src="scripts/back.js"></script>
     <script src="scripts/word.js"></script>
     <script src="scripts/analysis.js"></script>
+    <script src="scripts/main.js"></script>
   </body>
 </html>
