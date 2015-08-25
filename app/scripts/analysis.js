@@ -145,61 +145,33 @@ function drawDayHourHeatMap (data) {
 
 
 function drawPieChart(data){
-
-  function getRandomColor() {
-      var letters = '0123456789ABCDEF'.split('');
-      var color = '#';
-      for (var i = 0; i < 6; i++ ) {
-          color += letters[Math.floor(Math.random() * 16)];
-      }
-      return color;
-  }
-
   var pieData = [];
   var length = (data.length > 20)? 20 : data.length;
   for(var i = 0; i < length; ++i){
     pieData.push({
       "label": data[i].domain,
       "value": data[i].count,
-      "color": getRandomColor()
     });
   }
 
   $("#pieChart").html("");
-  var pie = new d3pie("pieChart", {
-    "header": {
-      "title": {
-        "text": "Domain Count",
-      "fontSize": 24,
-      "font": "open sans"
-      },
-      "subtitle": {
-        "color": "#999999",
-      "fontSize": 12,
-      "font": "open sans"
-      },
-      "titleSubtitlePadding": 9
-    },
-      "footer": {
-        "color": "#999999",
-      "fontSize": 10,
-      "font": "open sans",
-      "location": "bottom-left"
-      },
+  var pie = new d3pie("pieChart", { 
       "size": {
-        "canvasWidth": 590,
+        "canvasWidth": 960,
         "pieOuterRadius": "90%"
       },
       "data": {
-        "sortOrder": "value-desc",
+		"smallSegmentGrouping": {
+			enabled: true,
+			value: 2,
+			valueType: "percentage",
+			label: "other",
+		},
         "content": pieData
       },
       "labels": {
         "outer": {
-          "pieDistance": 32
-        },
-        "inner": {
-          "hideWhenLessThanPercentage": 3
+          "pieDistance": 50
         },
         "mainLabel": {
           "fontSize": 11
@@ -221,20 +193,16 @@ function drawPieChart(data){
       },
       "effects": {
         "pullOutSegmentOnClick": {
-          "effect": "linear",
-          "speed": 500,
-          "size": 10
+          "effect": "elastic",
+          "speed": 800,
+          "size": 15
         }
       },
-      "misc": {
-        "colors": {
-          "background": "#ffffff"
-        },
-        "gradient": {
-          "enabled": true,
-          "percentage": 100
-        }
-      },
+  "tooltips": {
+    enabled: true,
+    type: "placeholder",
+    string: "{label}, {value}"
+  },
       "callbacks": {}
   });
 }
