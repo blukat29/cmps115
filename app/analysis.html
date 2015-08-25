@@ -17,69 +17,76 @@
     <script src="library/scripts/jquery.blockUI.js"></script>
   </head>
   <body>
-    <div id="spin" style="position:fixed;top:50%;left:50%"> </div>
+    <div id="spin" style="position:fixed;top:50%;left:50%"></div>
     <div class="container-fluid">
       <div class="row">
 
-        <!-- Navbar -->
-        <nav class="col-xs-2 bs-docs-sidebar">
-          <div class="fixed">
-            <h1>Colorful<br>
-            History</h1>
-            <ul id="sidebar" class="nav nav-stacked">
-              <li><a href="#grp-Filter">Filter</a></li>
-              <li><a href="#grp-HitsPerDay">Hits Per Day</a></li>
-              <li><a href="#grp-DayHourHeatMap">Day-Hour Heat Map</a></li>
-              <li><a href="#grp-DomainCloud">Domain Cloud</a></li>
-              <li><a href="#grp-PieChart">Top Domains Pie Chart</a></li>
-            </ul>
-          </div>
-        </nav>
+        <!-- Sidebar -->
+        <div class="col-md-2">
+          <div class="sidebar-wrapper" data-spy="affix">
+            <nav class="bs-docs-sidebar">
+              <h1>Colorful<br>
+              History</h1>
+              <ul id="nav-sidebar" class="nav nav-stacked">
+                <li><a href="#DomainCloud">Domain Cloud</a></li>
+                <li><a href="#HitsPerDay">Hits Per Day</a></li>
+                <li><a href="#DayHourHeatMap">Day-Hour Heat Map</a></li>
+                <li><a href="#PieChart">Top Domains</a></li>
+              </ul>
+            </nav> <!-- bs-docs-sidebar -->
+            <div id="filter-sidebar">
+              <hr>
+              <div class="form-group form-group-sm">
+                <select name="timespan" id="timespan" class="form-control">
+                  <option value="3600000">1 Hour</option>
+                  <option value="86400000">1 Day</option>
+                  <option value="604800000">1 Week</option>
+                  <option value="2592000000">1 Month</option>
+                  <option value="12096000000" selected>3 Months</option>
+                </select>
+              </div>
+              <div class="form-group form-group-sm">
+                <div class="input-group input-group-sm">
+                  <input name="domain-filter" id="domain-filter" type="text" class="form-control" placeholder="Domain or title ...">
+                  <span class="input-group-btn" style="width: inherit;">
+                    <button id="filter-btn" class="btn btn-default" type="button">Filter</button>
+                  </span>
+                </div>
+              </div>
+            </div> <!-- filter-sidebar -->
+          </div> <!-- sidebar-wrapper -->
+        </div> <!-- col-md-2 -->
 
         <!-- Main Content -->
-        <div class="col-xs-10 main-content">
-          <section id="grp-Filter" class="group">
-            <h3>Filter</h3>
-            <div id="filter">
-              <div>
-                <label>Domain or title</label>
-                <input type="text" id="inputText" />
-              </div>
-              <div>
-                <input type="radio" name="duration" value="3600000">1 Hour
-                <input type="radio" name="duration" value="86400000">1 Day
-                <input type="radio" name="duration" value="604800000">1 Week
-                <input type="radio" name="duration" value="2592000000">1 Month
-                <input type="radio" name="duration" value="12096000000" checked>All
-              </div>
-              <div>
-                <button id="btnApplyText">Apply</button>
-              </div>
-            </div>
-          </section>
+        <div class="col-md-10">
+          <div class="main-content">
+            <section id="DomainCloud" class="group">
+              <h3>Domain Cloud</h3>
+              <hr>
+              <div id="domainCloud"></div>
+            </section>
 
-          <section id="grp-HitsPerDay" class="group">
-            <h3>Hits per day</h3>
-            <div id="hitsPerDay"></div>
-          </section>
+            <section id="HitsPerDay" class="group">
+              <h3>Hits per day</h3>
+              <hr>
+              <div id="hitsPerDay"></div>
+            </section>
 
-          <section id="grp-DayHourHeatMap" class="group">
-            <h3>Day-Hour Heat Map</h3>
-            <div id="dayHourHeatMap"></div>
-          </section>
+            <section id="DayHourHeatMap" class="group">
+              <h3>Day-Hour Heat Map</h3>
+              <hr>
+              <div id="dayHourHeatMap"></div>
+            </section>
 
-          <section id="grp-DomainCloud" class="group">
-            <h3>Domain Cloud</h3>
-            <div id="domainCloud"></div>
-          </section>
-
-          <section id="grp-PieChart" class="group">
-            <h3>Top domains</h3>
-            <div id="pieChart"></div>
-          </section>
-        </div>
-      </div>
-    </div>
+            <section id="PieChart" class="group">
+              <h3>Top domains</h3>
+              <hr>
+              <div id="pieChart"></div>
+            </section>
+          </div>
+        </div> <!-- col-md-10 -->
+      </div> <!-- row -->
+    </div> <!-- container-fluid -->
 
     <script src="scripts/back.js"></script>
     <script src="scripts/word.js"></script>
