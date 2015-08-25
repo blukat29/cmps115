@@ -2,7 +2,13 @@
 
 var filter = {};
 
-$("#btnApplyText").click(redraw);
+$('body').scrollspy({
+    target: '.bs-docs-sidebar',
+    offset: 40
+});
+
+$("#filter-btn").click(redraw);
+$("select#timespan").change(redraw);
 
 function redraw() {
   var opts = {
@@ -30,8 +36,8 @@ function redraw() {
   var spinner = new Spinner(opts).spin();
   $("#spin").append(spinner.el);
   $.blockUI({message: null});
-  var text = $("#inputText").val();
-  var duration = $("input:checked").val();
+  var text = $("#domain-filter").val();
+  var duration = $("select#timespan").val();
   filter.text = text;
   filter.duration = +duration;
   drawAll(filter, function() {

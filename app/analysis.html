@@ -2,9 +2,14 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Colorful History</title>
+    <link href="library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="styles/analysis.css" rel="stylesheet">
+    <link href="styles/main.css" rel="stylesheet">
     <script src="library/scripts/jquery-2.1.4.min.js"></script>
+    <script src="library/bootstrap/js/bootstrap.min.js"></script>
     <script src="library/scripts/d3.min.js"></script>
     <script src="library/scripts/d3.layout.cloud.js"></script>
     <script src="library/scripts/d3pie.min.js"></script>
@@ -12,37 +17,76 @@
     <script src="library/scripts/jquery.blockUI.js"></script>
   </head>
   <body>
-    <h1>Colorful History</h1>
-    <div id="spin" style="position:fixed;top:50%;left:50%"> </div>
-    <h3>Filters</h3>
-    <div id="filter">
-      <div>
-        <label>Domain or title</label>
-        <input type="text" id="inputText" />
-      </div>
-      <div>
-        <input type="radio" name="duration" value="3600000">1 Hour
-        <input type="radio" name="duration" value="86400000">1 Day
-        <input type="radio" name="duration" value="604800000">1 Week
-        <input type="radio" name="duration" value="2592000000">1 Month
-        <input type="radio" name="duration" value="12096000000" checked>All
-      </div>
-      <div>
-        <button id="btnApplyText">Apply</button>
-      </div>
-    </div>
+    <div id="spin" style="position:fixed;top:50%;left:50%"></div>
+    <div class="container-fluid">
+      <div class="row">
 
-    <h3>Hits per day</h3>
-    <div id="hitsPerDay"></div>
+        <!-- Sidebar -->
+        <div class="col-md-2">
+          <div class="sidebar-wrapper" data-spy="affix">
+            <nav class="bs-docs-sidebar">
+              <h1>Colorful<br>
+              History</h1>
+              <ul id="nav-sidebar" class="nav nav-stacked">
+                <li><a href="#DomainCloud">Domain Cloud</a></li>
+                <li><a href="#HitsPerDay">Hits Per Day</a></li>
+                <li><a href="#DayHourHeatMap">Day-Hour Heat Map</a></li>
+                <li><a href="#PieChart">Top Domains</a></li>
+              </ul>
+            </nav> <!-- bs-docs-sidebar -->
+            <div id="filter-sidebar">
+              <hr>
+              <div class="form-group form-group-sm">
+                <select name="timespan" id="timespan" class="form-control">
+                  <option value="3600000">1 Hour</option>
+                  <option value="86400000">1 Day</option>
+                  <option value="604800000">1 Week</option>
+                  <option value="2592000000">1 Month</option>
+                  <option value="12096000000" selected>3 Months</option>
+                </select>
+              </div>
+              <div class="form-group form-group-sm">
+                <div class="input-group input-group-sm">
+                  <input name="domain-filter" id="domain-filter" type="text" class="form-control" placeholder="Domain or title ...">
+                  <span class="input-group-btn" style="width: inherit;">
+                    <button id="filter-btn" class="btn btn-default" type="button">Filter</button>
+                  </span>
+                </div>
+              </div>
+            </div> <!-- filter-sidebar -->
+          </div> <!-- sidebar-wrapper -->
+        </div> <!-- col-md-2 -->
 
-    <h3>Day-Hour Heat Map</h3>
-    <div id="dayHourHeatMap"></div>
+        <!-- Main Content -->
+        <div class="col-md-10">
+          <div class="main-content">
+            <section id="DomainCloud" class="group">
+              <h3>Domain Cloud</h3>
+              <hr>
+              <div id="domainCloud"></div>
+            </section>
 
-    <h3>Domain Cloud</h3>
-    <div id="domainCloud"></div>
+            <section id="HitsPerDay" class="group">
+              <h3>Hits per day</h3>
+              <hr>
+              <div id="hitsPerDay"></div>
+            </section>
 
-    <h3>Pie Chart</h3>
-    <div id="pieChart"></div>
+            <section id="DayHourHeatMap" class="group">
+              <h3>Day-Hour Heat Map</h3>
+              <hr>
+              <div id="dayHourHeatMap"></div>
+            </section>
+
+            <section id="PieChart" class="group">
+              <h3>Top domains</h3>
+              <hr>
+              <div id="pieChart"></div>
+            </section>
+          </div>
+        </div> <!-- col-md-10 -->
+      </div> <!-- row -->
+    </div> <!-- container-fluid -->
 
     <script src="scripts/back.js"></script>
     <script src="scripts/word.js"></script>

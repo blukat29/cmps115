@@ -1,0 +1,33 @@
+/* Sidebar */
+
+/* brand name */
+.bs-docs-sidebar h1 {
+    margin-bottom: 20px;
+}
+/* all links */
+.bs-docs-sidebar .nav>li>a {
+    color: #999;
+    padding: 4px 20px;
+    font-size: 13px;
+    font-weight: 400;
+}
+/* active links */
+.bs-docs-sidebar .nav>.active>a {
+    color: #563d7c;
+}
+/* filter */
+#filter-sidebar {
+    margin-top: 50px;
+    width: 80%;
+}
+
+
+
+/* Main Content */
+
+.main-content section {
+    margin-top: 15px;
+    margin-bottom: 50px;
+    padding-top: 5px;
+    padding-left: 30px;
+}
