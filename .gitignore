@@ -47,4 +47,6 @@ Session.vim
 .netrwhist
 *~
 
+# Chrome extension private key
+*.pem
 
