@@ -24,13 +24,17 @@ rect.bordered {
 text.mono {
   font-size: 9pt;
   font-family: Consolas, courier;
-  fill: #aaa;
+  fill: #000;
 }
 
-text.axis-workweek {
-  fill: #000;
+text.axis-sun {
+  fill: #f00;
+}
+
+text.axis-sat {
+  fill: #00f;
 }
 
 text.axis-worktime {
-  fill: #000;
+  fill: #aaa;
 }
